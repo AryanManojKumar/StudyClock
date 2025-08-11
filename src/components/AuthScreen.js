@@ -3,6 +3,13 @@ import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../firebase';
 import { Clock, Play, Target, TrendingUp } from 'lucide-react';
 
+const features = [
+  { icon: Play, label: 'Study Timer' },
+  { icon: Target, label: 'Daily Goals' },
+  { icon: TrendingUp, label: 'Progress Tracking' },
+  { icon: Clock, label: 'Session History' }
+];
+
 const AuthScreen = () => {
   const signInWithGoogle = async () => {
     try {
@@ -27,22 +34,12 @@ const AuthScreen = () => {
 
         {/* Features */}
         <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-            <Play className="w-6 h-6 text-white mx-auto mb-2" />
-            <p className="text-white/90 text-sm">Study Timer</p>
-          </div>
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-            <Target className="w-6 h-6 text-white mx-auto mb-2" />
-            <p className="text-white/90 text-sm">Daily Goals</p>
-          </div>
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-            <TrendingUp className="w-6 h-6 text-white mx-auto mb-2" />
-            <p className="text-white/90 text-sm">Progress Tracking</p>
-          </div>
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-            <Clock className="w-6 h-6 text-white mx-auto mb-2" />
-            <p className="text-white/90 text-sm">Session History</p>
-          </div>
+          {features.map(({ icon: Icon, label }) => (
+            <div key={label} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+              <Icon className="w-6 h-6 text-white mx-auto mb-2" />
+              <p className="text-white/90 text-sm">{label}</p>
+            </div>
+          ))}
         </div>
 
         {/* Auth Card */}

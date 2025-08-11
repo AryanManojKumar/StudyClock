@@ -1,20 +1,11 @@
 import React from 'react';
 import { Target, TrendingUp } from 'lucide-react';
+import { formatDuration } from '../utils/time';
+import { DEFAULT_DAILY_GOAL } from '../constants';
 
 const DailyGoal = ({ data, onUpdateGoal }) => {
-  const formatDuration = (ms) => {
-    const totalMinutes = Math.floor(ms / 60000);
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-    
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    } else {
-      return `${minutes}m`;
-    }
-  };
 
-  const goalMs = (data?.dailyGoal || 4) * 60 * 60 * 1000;
+  const goalMs = (data?.dailyGoal || DEFAULT_DAILY_GOAL) * 60 * 60 * 1000;
   const studiedMs = data?.totalStudiedToday || 0;
   const progress = Math.min((studiedMs / goalMs) * 100, 100);
   const isCompleted = progress >= 100;
@@ -41,7 +32,7 @@ const DailyGoal = ({ data, onUpdateGoal }) => {
           min="0.5"
           max="24"
           step="0.5"
-          value={data?.dailyGoal || 4}
+          value={data?.dailyGoal || DEFAULT_DAILY_GOAL}
           onChange={handleGoalChange}
           className="bg-white/20 border border-white/30 rounded-lg px-3 py-2 text-white w-20 text-center"
         />

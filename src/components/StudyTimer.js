@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Pause, Square } from 'lucide-react';
 import SessionModal from './SessionModal';
+import { formatTime } from '../utils/time';
+import { MIN_SESSION_DURATION } from '../constants';
 
 const StudyTimer = ({ onSessionComplete }) => {
   const [isRunning, setIsRunning] = useState(false);
@@ -21,15 +23,6 @@ const StudyTimer = ({ onSessionComplete }) => {
     }
     return () => clearInterval(interval);
   }, [isRunning, isPaused, startTime, pausedTime]);
-
-  const formatTime = (ms) => {
-    const totalSeconds = Math.floor(ms / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };
 
   const handleStart = () => {
     if (isPaused) {
@@ -59,7 +52,7 @@ const StudyTimer = ({ onSessionComplete }) => {
     const totalTime = elapsedTime;
     const minutes = Math.floor(totalTime / 60000);
     
-    if (minutes < 1) {
+    if (totalTime < MIN_SESSION_DURATION) {
       alert('Session too short! Minimum 1 minute required.');
       handleReset();
       return;

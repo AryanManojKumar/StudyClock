@@ -84,10 +84,32 @@ class ProductivityClock {
     }
 
     initializeAuth() {
+        // Debug: Check if elements exist
+        console.log('🔍 Debug - Elements found:', {
+            googleSignInBtn: !!this.googleSignInBtn,
+            guestModeBtn: !!this.guestModeBtn,
+            authSection: !!this.authSection,
+            mainApp: !!this.mainApp
+        });
+        
         // Auth event listeners
-        this.googleSignInBtn.addEventListener('click', () => this.signInWithGoogle());
-        this.guestModeBtn.addEventListener('click', () => this.continueAsGuest());
-        this.signOutBtn.addEventListener('click', () => this.signOutUser());
+        if (this.googleSignInBtn) {
+            this.googleSignInBtn.addEventListener('click', () => {
+                console.log('🔄 Google sign in button clicked');
+                this.signInWithGoogle();
+            });
+        }
+        
+        if (this.guestModeBtn) {
+            this.guestModeBtn.addEventListener('click', () => {
+                console.log('🔄 Guest mode button clicked');
+                this.continueAsGuest();
+            });
+        }
+        
+        if (this.signOutBtn) {
+            this.signOutBtn.addEventListener('click', () => this.signOutUser());
+        }
         
         // Listen for auth state changes
         onAuthStateChanged(auth, (user) => {
@@ -426,7 +448,7 @@ class ProductivityClock {
         this.sessionModal.style.display = 'block';
     }
 
-    saveSession() {
+    async saveSession() {
         const notes = this.sessionNotesEl.value.trim();
         const session = {
             date: new Date().toISOString(),
@@ -435,20 +457,11 @@ class ProductivityClock {
             startTime: this.sessionStartTime.toISOString()
         };
         
-        this.data.sessions.unshift(session);
-        this.data.totalStudiedToday += this.currentSessionDuration;
-        
-        // Keep only last 50 sessions
-        if (this.data.sessions.length > 50) {
-            this.data.sessions = this.data.sessions.slice(0, 50);
-        }
-        
-        this.saveData();
-        this.updateUI();
+        await this.saveSessionToFirebase(session);
         this.sessionModal.style.display = 'none';
     }
 
-    skipSession() {
+    async skipSession() {
         const session = {
             date: new Date().toISOString(),
             duration: this.currentSessionDuration,
@@ -456,11 +469,7 @@ class ProductivityClock {
             startTime: this.sessionStartTime.toISOString()
         };
         
-        this.data.sessions.unshift(session);
-        this.data.totalStudiedToday += this.currentSessionDuration;
-        
-        this.saveData();
-        this.updateUI();
+        await this.saveSessionToFirebase(session);
         this.sessionModal.style.display = 'none';
     }
 

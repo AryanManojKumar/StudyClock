@@ -1,10 +1,12 @@
 # ⏰ Productivity Clock
 
-> A beautiful, modern productivity tracker to monitor your study sessions and achieve your daily goals.
+>  productivity tracker to monitor your study sessions and achieve your daily goals.
 
-## 🌟 [Live Demo](https://productivity-clock-f226a.web.app)
+## 🌟 [Live ](https://productivity-clock-f226a.web.app)
 
 ![Productivity Clock](https://img.shields.io/badge/Status-Live-brightgreen) ![React](https://img.shields.io/badge/React-18.2.0-blue) ![Firebase](https://img.shields.io/badge/Firebase-10.7.1-orange)
+
+https://productivity-clock-f226a.web.app
 
 ## ✨ Features
 

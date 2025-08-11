@@ -34,3 +34,6 @@ yarn-error.log*
 
 # OS
 Thumbs.db
+
+# Hide this file itself from GitHub
+.gitignore

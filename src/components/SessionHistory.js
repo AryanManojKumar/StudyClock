@@ -34,7 +34,7 @@ const SessionHistory = ({ sessions = [] }) => {
                         <p className="text-white/40 text-sm">Start your first study session!</p>
                     </div>
                 ) : (
-                    sessions.map((session, index) => (
+                    sessions.slice(0, 10).map((session, index) => (
                         <div
                             key={session.id || index}
                             className="bg-white/5 rounded-lg p-4 border border-white/10 hover:bg-white/10 transition-colors"
@@ -61,6 +61,13 @@ const SessionHistory = ({ sessions = [] }) => {
                             )}
                         </div>
                     ))
+                )}
+                {sessions.length > 10 && (
+                    <div className="text-center py-2">
+                        <span className="text-white/50 text-sm">
+                            Showing 10 of {sessions.length} sessions
+                        </span>
+                    </div>
                 )}
             </div>
         </div>

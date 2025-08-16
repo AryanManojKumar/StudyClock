@@ -47,11 +47,10 @@ const DailyGoal = ({ data, onUpdateGoal }) => {
         </div>
         <div className="w-full bg-white/20 rounded-full h-3">
           <div
-            className={`h-3 rounded-full transition-all duration-500 ${
-              isCompleted 
-                ? 'bg-gradient-to-r from-green-400 to-emerald-500' 
-                : 'bg-gradient-to-r from-blue-400 to-purple-500'
-            }`}
+            className={`h-3 rounded-full transition-all duration-500 ${isCompleted
+              ? 'bg-gradient-to-r from-green-400 to-emerald-500'
+              : 'bg-gradient-to-r from-blue-400 to-purple-500'
+              }`}
             style={{ width: `${progress}%` }}
           ></div>
         </div>
@@ -61,11 +60,10 @@ const DailyGoal = ({ data, onUpdateGoal }) => {
       </div>
 
       {/* Status */}
-      <div className={`text-center p-3 rounded-lg ${
-        isCompleted 
-          ? 'bg-green-500/20 border border-green-400/30' 
-          : 'bg-blue-500/20 border border-blue-400/30'
-      }`}>
+      <div className={`text-center p-3 rounded-lg ${isCompleted
+        ? 'bg-green-500/20 border border-green-400/30'
+        : 'bg-blue-500/20 border border-blue-400/30'
+        }`}>
         {isCompleted ? (
           <div className="flex items-center justify-center gap-2">
             <TrendingUp className="w-5 h-5 text-green-400" />
@@ -88,9 +86,9 @@ const DailyGoal = ({ data, onUpdateGoal }) => {
         </div>
         <div className="text-center">
           <div className="text-2xl font-bold text-white">
-            {data?.sessions?.length || 0}
+            {data?.todaySessions?.length || 0}
           </div>
-          <div className="text-white/70 text-sm">Sessions</div>
+          <div className="text-white/70 text-sm">Today's Sessions</div>
         </div>
         <div className="text-center">
           <div className="text-2xl font-bold text-white">

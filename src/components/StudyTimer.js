@@ -18,15 +18,17 @@ const StudyTimer = ({ onSessionComplete }) => {
     if (isRunning && !isPaused) {
       interval = setInterval(() => {
         const now = Date.now();
-        setElapsedTime(now - startTime - pausedTime);
+        setElapsedTime(now - startTime);
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isRunning, isPaused, startTime, pausedTime]);
+  }, [isRunning, isPaused, startTime]);
 
   const handleStart = () => {
     if (isPaused) {
-      // Resume
+      // Resume - adjust start time to account for paused duration
+      const now = Date.now();
+      setStartTime(now - elapsedTime);
       setIsPaused(false);
       setIsRunning(true);
     } else {
@@ -43,7 +45,7 @@ const StudyTimer = ({ onSessionComplete }) => {
   const handlePause = () => {
     setIsPaused(true);
     setIsRunning(false);
-    setPausedTime(prev => prev + (Date.now() - startTime - prev));
+    // Keep the current elapsed time when pausing
   };
 
   const handleStop = () => {

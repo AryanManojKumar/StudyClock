@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import LiveClock from './LiveClock';
 import StudyTimer from './StudyTimer';
 import DailyGoal from './DailyGoal';
 import SessionHistory from './SessionHistory';
+import Logo from './Logo';
 import { useFirebaseData } from '../hooks/useFirebaseData';
 import { LogOut, User } from 'lucide-react';
 
@@ -24,15 +25,18 @@ const Dashboard = ({ user }) => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-              <User className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-white font-semibold">
-                {user.displayName || user.email}
-              </h1>
-              <p className="text-white/70 text-sm">Welcome back!</p>
+          <div className="flex items-center gap-6">
+            <Logo />
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <User className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-white font-semibold">
+                  {user.displayName || user.email}
+                </h1>
+                <p className="text-white/70 text-sm">Welcome back!</p>
+              </div>
             </div>
           </div>
           <button
@@ -50,8 +54,8 @@ const Dashboard = ({ user }) => {
           <div className="lg:col-span-2 space-y-6">
             <LiveClock />
             <StudyTimer onSessionComplete={addSession} />
-            <DailyGoal 
-              data={data} 
+            <DailyGoal
+              data={data}
               onUpdateGoal={updateGoal}
             />
           </div>
